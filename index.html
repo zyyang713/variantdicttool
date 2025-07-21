@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>異體字字典：字圖查詢小工具</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: url('banner.png') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+      background-color: #f8f9fa;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85);
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #343a40;
+    }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #iframeContainer {
+      margin-top: 30px;
+      display: none;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+      <h1>教育部異體字字典 字圖查詢小工具</h1>
+
+      <label for="bookCode">書籍代號（三位數）：</label>
+		<input list="bookCodeList" id="bookCode" maxlength="3" placeholder="例如：001" />
+		<datalist id="bookCodeList">
+		  <option value="001">001－說文解字（大徐本）
+		  <option value="002">002－說文解字（段注本）
+		  <option value="003">003－校正甲骨文編（甲骨文編）
+		  <option value="004">004－甲骨文字集釋
+		  <option value="005">005－金文編
+		  <option value="006">006－古文字類編
+		  <option value="007">007－漢語古文字字形表
+		  <option value="008">008－漢簡文字類編
+		  <option value="009">009－古璽文編
+		  <option value="010">010－漢隸字源
+		  <option value="011">011－隸辨
+		  <option value="012">012－金石文字辨異
+		  <option value="013">013－偏類碑別字
+		  <option value="014">014－碑別字新編
+		  <option value="015">015－玉篇零卷
+		  <option value="016">016－六朝別字記新編
+		  <option value="017">017－敦煌俗字譜
+		  <option value="018">018－干祿字書
+		  <option value="019">019－五經文字
+		  <option value="020">020－新加九經字樣
+		  <option value="021">021－龍龕手鏡（高麗本）
+		  <option value="022">022－龍龕手鑑
+		  <option value="023">023－佩觿
+		  <option value="024">024－玉篇（元刊本）
+		  <option value="025">025－廣韻
+		  <option value="026">026－集韻
+		  <option value="027">027－集韻考正
+		  <option value="028">028－類篇
+		  <option value="029">029－精嚴新集大藏音
+		  <option value="030">030－四聲篇海（明刊本）
+		  <option value="031">031－字鑑
+		  <option value="032">032－六書正譌
+		  <option value="033">033－宋元以來俗字譜
+		  <option value="034">034－俗書刊誤
+		  <option value="035">035－字學三正
+		  <option value="036">036－字彙
+		  <option value="037">037－正字通
+		  <option value="038">038－字彙補
+		  <option value="039">039－康熙字典（校正本）
+		  <option value="040">040－康熙字典（新修本）
+		  <option value="041">041－經典文字辨證書
+		  <option value="042">042－增廣字學舉隅
+		  <option value="043">043－古今正俗字詁
+		  <option value="044">044－字辨
+		  <option value="045">045－彙音寶鑑
+		  <option value="046">046－異體字手冊
+		  <option value="047">047－大陸簡化字表
+		  <option value="048">048－角川漢和辭典
+		  <option value="049">049－韓國基礎漢字表
+		  <option value="050">050－中日朝漢字字形對照
+		  <option value="051">051－中文大辭典（十冊本）
+		  <option value="052">052－漢語大字典
+		  <option value="053">053－中國書法大字典
+		  <option value="054">054－草書大字典
+		  <option value="055">055－學生簡體字字典
+		  <option value="056">056－簡體字表
+		  <option value="057">057－佛教難字字典
+		  <option value="058">058－中華字海
+		  <option value="059">059－古文四聲韻
+		  <option value="060">060－國字標準字體宋體母稿
+		  <option value="061">061－歷代書法字彙
+		  <option value="062">062－重訂直音篇
+		  <option value="063">063－異體字表
+		</datalist>
+
+
+      <label for="glyphId">字圖ID（七位數）：</label>
+      <input type="text" id="glyphId" maxlength="7" placeholder="例如：0001234" />
+
+      <label for="displayMode">顯示方式：</label>
+      <select id="displayMode">
+        <option value="newTab">在新分頁開啟</option>
+        <option value="sameTab">在本頁跳轉</option>
+      </select>
+
+      <button onclick="goToImage()">確認查詢</button>
+
+      <div id="iframeContainer">
+        <h3 style="text-align:center;">查詢結果預覽：</h3>
+        <iframe id="imageFrame" src=""></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        goToImage();
+      }
+    });
+
+    function goToImage() {
+      const bookCode = document.getElementById("bookCode").value.trim();
+      const glyphId = document.getElementById("glyphId").value.trim();
+      const displayMode = document.getElementById("displayMode").value;
+
+      const bookCodeValid = /^\d{3}$/.test(bookCode);
+      const glyphIdValid = /^\d{7}$/.test(glyphId);
+
+      if (!bookCodeValid || !glyphIdValid) {
+        alert("請輸入正確格式的書籍代號（三位數）與字圖ID（七位數）");
+        return;
+      }
+
+      const url = `https://dict.variants.moe.edu.tw/book_piece/${bookCode}/${glyphId}.png`;
+
+      if (displayMode === "newTab") {
+        window.open(url, "_blank");
+      } else if (displayMode === "sameTab") {
+        window.location.href = url;
+      }
+
+      // 若要顯示預覽（僅當支援時）
+      if (displayMode === "embed") {
+        document.getElementById("iframeContainer").style.display = "block";
+        document.getElementById("imageFrame").src = url;
+      }
+    }
+  </script>
+</body>
+</html>
