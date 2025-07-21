@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>異體字字典：字圖查詢小工具 登入頁面</title>
+</head>
+<body>
+  <center>
+  <h1>異體字字典：字圖查詢小工具</h1>
+  <h2>請登入</h2>
+  <label for="username">帳號：</label>
+  <input type="text" id="username" /><br><br>
+  <label for="password">密碼：</label>
+  <input type="password" id="password" /><br><br>
+  <button onclick="login()">登入</button>
+  </center>
+
+  <script>
+    // 預設帳號密碼（可自行更改）
+    const validUsername = "variantsdict";
+    const validPassword = "dict";
+
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (username === validUsername && password === validPassword) {
+        // 登入成功，導向查詢頁
+        window.location.href = "main.html";
+      } else {
+        alert("帳號或密碼錯誤！");
+      }
+    }
+  </script>
+</body>
+</html>
